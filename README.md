@@ -1,17 +1,47 @@
-Bot de Discord para análisis de archivos y URLs con VirusTotal
-Este bot de Discord utiliza la API de VirusTotal para analizar archivos y URLs en busca de posibles amenazas de seguridad. Permite a los usuarios cargar archivos y enviar URLs para que el bot las analice y proporcione información sobre su estado de seguridad.
+# Bot de Discord con análisis de archivos y URLs
 
-Funcionalidades
-Análisis automático de archivos adjuntos enviados por los usuarios.
-Análisis de URLs enviadas por los usuarios.
-Comandos para detener y reanudar el análisis en un canal específico.
-Comando de ayuda (!help) para obtener información sobre los comandos disponibles.
-Tecnologías utilizadas
-Python
-Discord.py (biblioteca de Discord para Python)
-VirusTotal API
-Uso
-Invita al bot a tu servidor de Discord.
-Interactúa con el bot enviando archivos adjuntos o URLs para su análisis.
-Usa los comandos !detener_analisis y !reanudar_analisis para controlar el análisis en un canal específico.
-Para obtener ayuda sobre los comandos disponibles, escribe !help en el chat.
+Este repositorio contiene el código fuente de un bot de Discord programado en Python que utiliza la API de VirusTotal para analizar archivos y URLs en tiempo real en busca de posibles amenazas de seguridad.
+
+## Funcionalidades
+
+- Análisis automático de archivos adjuntos y URLs.
+- Comandos para detener y reanudar el análisis en un canal específico (`reanudar_analisis` y `detener_analisis`).
+- Comando de ayuda (`help`) para obtener información sobre los comandos disponibles.
+
+## Uso
+
+1. Crea el entorno virtual (aquí encontrarás información de como hacerlo)
+2. Instala las librerías utilizadas.
+3. Configura el archívo de python con tu token de Discord y tu clave de API de VirusTotal.
+4. Ejecuta el código e invita al bot en tu servidor.
+
+Este bot está pensado para ser una base de ciberseguridad de codigo abierto donde cualquiera puede añadir funcionalidades 
+
+## Configuración del entorno
+
+Para ejecutar este bot de Discord, sigue estos pasos:
+
+1. Crea una carpeta donde irá el bot.
+
+2. 
+
+3. Abre una terminal y navega hasta el directorio del proyecto.
+
+4. Ejecuta los siguientes comandos para crear y activar un entorno virtual con pipenv:
+
+```bash
+pip3 install pipenv
+pipenv shell
+pipenv install discord.py
+```
+5. Debes crear una carpeta que se llame src y dentro poner el archivo python llamado main.py que puedes encontrar aquí:
+
+6. Asegurate de instalar todas las dependencias, puedes hacerlo de la siguiente forma:
+
+```bash
+pip install regex
+pip install discord.py
+pip install virus-total-api
+```
+
+¡Espero que encuentres útil este bot para proteger tu servidor de Discord!
