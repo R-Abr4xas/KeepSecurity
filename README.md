@@ -43,4 +43,10 @@ pip install virus-total-api
 ```
 6. Cambia el bot token de Discord y la api de Virustotal:
 
+7. Ejecuta el bot de la siguiente forma:
+
+```bash
+python src/main.py
+```
+
 ¡Espero que encuentres útil este bot para proteger tu servidor de Discord!
