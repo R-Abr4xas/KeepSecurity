@@ -23,25 +23,24 @@ Para ejecutar este bot de Discord, sigue estos pasos:
 
 1. Crea una carpeta donde irá el bot.
 
-2. 
+2. Abre una terminal y navega hasta el directorio del proyecto.
 
-3. Abre una terminal y navega hasta el directorio del proyecto.
-
-4. Ejecuta los siguientes comandos para crear y activar un entorno virtual con pipenv:
+3. Ejecuta los siguientes comandos para crear y activar un entorno virtual con pipenv:
 
 ```bash
 pip3 install pipenv
 pipenv shell
 pipenv install discord.py
 ```
-5. Debes crear una carpeta que se llame src y dentro poner el archivo python llamado main.py que puedes encontrar aquí:
+4. Debes crear una carpeta que se llame src y dentro poner el archivo python llamado main.py que puedes encontrar aquí:
 
-6. Asegurate de instalar todas las dependencias, puedes hacerlo de la siguiente forma:
+5. Asegurate de instalar todas las dependencias, puedes hacerlo de la siguiente forma:
 
 ```bash
 pip install regex
 pip install discord.py
 pip install virus-total-api
 ```
+6. Cambia el bot token de Discord y la api de Virustotal:
 
 ¡Espero que encuentres útil este bot para proteger tu servidor de Discord!
