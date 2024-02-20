@@ -41,7 +41,7 @@ pip install regex
 pip install discord.py
 pip install virus-total-api
 ```
-6. Cambia el bot token de Discord y la api de VirusTotal, el token de discord está en la linea 115 mientras que la api de VirusTotal está en la linea 13
+6. Introduce tu bot token y tu clave api de VirusTotal
 
 7. Ejecuta el bot de la siguiente forma:
 
