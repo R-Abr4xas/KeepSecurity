@@ -4,14 +4,15 @@ from virus_total_apis import PublicApi
 import re
 import asyncio
 
+# Datos necesarios para correr el bot
+API_KEY_VIRUSTOTAL = input("Por favor, introduce tu clave de API de VirusTotal: ")
+api = PublicApi(API_KEY_VIRUSTOTAL)
+BOT_TOKEN = input("Por favor, introduce tu token de bot de Discord: ")
+
 # Definir los intents que necesita el bot
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='', description="this is a testing bot", help_command=None, intents=intents)
-
-# Clave de la API de VirusTotal
-API_KEY_VIRUSTOTAL = "0000000000000000000000000000000000000000000000000000000000000"
-api = PublicApi(API_KEY_VIRUSTOTAL)
 
 # Expresión regular para identificar patrones de URL
 url_regex = re.compile(r'https?://\S+|www\.\S+|\S+\.\S+')
@@ -19,7 +20,7 @@ url_regex = re.compile(r'https?://\S+|www\.\S+|\S+\.\S+')
 # Lista para almacenar los canales en los que se debe detener el análisis
 canales_detener = []
 
-# Función para obtener información de VirusTotal
+# Función para obtener información de VirusTotal para una URL
 async def obtener_resultados_virustotal(url):
     resultado_analisis = api.scan_url(url)
     scan_id = resultado_analisis['results']['scan_id']
@@ -51,7 +52,6 @@ async def obtener_resultados_virustotal(url):
         else:
             error_str = "Ocurrió un error durante el escaneo."
             return error_str
-
 
 # Comando !help
 @bot.command()
@@ -127,4 +127,4 @@ async def on_message(message):
     except commands.CommandNotFound:
         pass  # Ignorar el error CommandNotFound
 
-bot.run('1111111111111111111111111111111111111111111111111')
+bot.run(BOT_TOKEN)
