@@ -31,22 +31,16 @@ async def obtener_resultados_virustotal(url):
         if report['results']['response_code'] == 1:
             positives = report['results']['positives']
             total = report['results']['total']
-            if positives > 0:
-                # Obtener detalles de los escaneos sospechosos
-                detalles_sospechosos = ""
-                for motor, resultado in report['results']['scans'].items():
-                    if resultado['result'] not in ['clean site', 'unrated site']:
-                        detalles_sospechosos += f"\n{motor}: {resultado['result']}"
-                resultado_str = f"**Resultado del análisis para {url}:**\n" \
-                                f"**Permalink**: {report['results']['permalink']}\n" \
-                                f"**Fecha de análisis:** {report['results']['scan_date']}\n" \
-                                f"**Resultado:** {positives} / {total} detectadas como maliciosas\n" \
-                                f"**Detalles de escaneo:** {detalles_sospechosos}"
-            else:
-                resultado_str = f"**Resultado del análisis para {url}:**\n" \
-                                f"**Permalink:** {report['results']['permalink']}\n" \
-                                f"**Fecha de análisis:** {report['results']['scan_date']}\n" \
-                                f"**Resultado:** No se encontraron amenazas detectadas."
+            # Obtener detalles de los escaneos sospechosos
+            detalles_sospechosos = ""
+            for motor, resultado in report['results']['scans'].items():
+                if resultado['result'] not in ['clean site', 'unrated site']:
+                    detalles_sospechosos += f"\n{motor}: {resultado['result']}"
+            resultado_str = f"**Resultado del análisis para {url}:**\n" \
+                            f"**Permalink**: {report['results']['permalink']}\n" \
+                            f"**Fecha de análisis:** {report['results']['scan_date']}\n" \
+                            f"**Resultado:** {positives} / {total} detectadas como maliciosas\n" \
+                            f"**Detalles de escaneo:** {detalles_sospechosos}"
             return resultado_str
         elif report['results']['response_code'] == -2:
             await asyncio.sleep(30)
