@@ -3,11 +3,12 @@ import discord
 from virus_total_apis import PublicApi
 import re
 import asyncio
+import getpass
 
 # Datos necesarios para correr el bot
-API_KEY_VIRUSTOTAL = input("Por favor, introduce tu clave de API de VirusTotal: ")
+API_KEY_VIRUSTOTAL = getpass.getpass("Por favor, introduce tu clave de API de VirusTotal: ")
+BOT_TOKEN = getpass.getpass("Por favor, introduce tu token de bot de Discord: ")
 api = PublicApi(API_KEY_VIRUSTOTAL)
-BOT_TOKEN = input("Por favor, introduce tu token de bot de Discord: ")
 
 # Definir los intents que necesita el bot
 intents = discord.Intents.all()
