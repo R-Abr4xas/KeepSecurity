@@ -19,7 +19,7 @@ url_regex = re.compile(r'https?://\S+|www\.\S+|\S+\.\S+')
 # Lista para almacenar los canales en los que se debe detener el análisis
 canales_detener = []
 
-# Función para obtener información de VirusTotal para una URL
+# Función para obtener información de VirusTotal
 async def obtener_resultados_virustotal(url):
     resultado_analisis = api.scan_url(url)
     scan_id = resultado_analisis['results']['scan_id']
@@ -29,14 +29,29 @@ async def obtener_resultados_virustotal(url):
         if report['results']['response_code'] == 1:
             positives = report['results']['positives']
             total = report['results']['total']
-            return f"**Resultado del análisis para {url}:**\n" \
-                   f"Permalink: {report['results']['permalink']}\n" \
-                   f"Fecha de análisis: {report['results']['scan_date']}\n" \
-                   f"Resultado: {positives} / {total} detectadas como maliciosas"
+            if positives > 0:
+                # Obtener detalles de los escaneos sospechosos
+                detalles_sospechosos = ""
+                for motor, resultado in report['results']['scans'].items():
+                    if resultado['result'] not in ['clean site', 'unrated site']:
+                        detalles_sospechosos += f"\n{motor}: {resultado['result']}"
+                resultado_str = f"**Resultado del análisis para {url}:**\n" \
+                                f"**Permalink**: {report['results']['permalink']}\n" \
+                                f"**Fecha de análisis:** {report['results']['scan_date']}\n" \
+                                f"**Resultado:** {positives} / {total} detectadas como maliciosas\n" \
+                                f"**Detalles de escaneo:** {detalles_sospechosos}"
+            else:
+                resultado_str = f"**Resultado del análisis para {url}:**\n" \
+                                f"**Permalink:** {report['results']['permalink']}\n" \
+                                f"**Fecha de análisis:** {report['results']['scan_date']}\n" \
+                                f"**Resultado:** No se encontraron amenazas detectadas."
+            return resultado_str
         elif report['results']['response_code'] == -2:
             await asyncio.sleep(30)
         else:
-            return "Ocurrió un error durante el escaneo."
+            error_str = "Ocurrió un error durante el escaneo."
+            return error_str
+
 
 # Comando !help
 @bot.command()
