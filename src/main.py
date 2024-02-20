@@ -13,7 +13,7 @@ api = PublicApi(API_KEY_VIRUSTOTAL)
 # Definir los intents que necesita el bot
 intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix='', description="this is a testing bot", help_command=None, intents=intents)
+bot = commands.Bot(command_prefix='', description="KeepSecurity", help_command=None, intents=intents)
 
 # Expresión regular para identificar patrones de URL
 url_regex = re.compile(r'https?://\S+|www\.\S+|\S+\.\S+')
