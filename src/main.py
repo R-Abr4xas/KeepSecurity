@@ -12,11 +12,22 @@ api = PublicApi(API_KEY_VIRUSTOTAL)
 
 # Definir los intents que necesita el bot
 intents = discord.Intents.all()
-
 bot = commands.Bot(command_prefix='', description="KeepSecurity", help_command=None, intents=intents)
 
 # Expresión regular para identificar patrones de URL
 url_regex = re.compile(r'https?://\S+|www\.\S+|\S+\.\S+')
+
+# Mensaje de introducción
+introduction_message = ("¡Hola! Soy KeepSecurity, tu asistente de seguridad en Discord. "
+                        "Mi función principal es analizar las URLs y archivos compartidos en este servidor "
+                        "para verificar su seguridad e integridad.\n\n"
+                        "Antes de comenzar, necesito tu consentimiento para analizar cualquier URL o archivo "
+                        "que compartas en este servidor. Te aseguro que solo recogeré y procesaré los datos "
+                        "necesarios para esta función y no almacenaré ninguna información personal tuya.\n\n"
+                        "Si estás de acuerdo con esto, puedes empezar a usar mis servicios simplemente compartiendo "
+                        "una URL o un archivo en el servidor. Si no estás de acuerdo, por favor no compartas ninguna "
+                        "URL o archivo que quieras que analice.\n\n"
+                        "¡Gracias por tu comprensión y cooperación!")
 
 # Lista para almacenar los canales en los que se debe detener el análisis
 canales_detener = []
@@ -91,6 +102,10 @@ async def reanudar_analisis(ctx):
 async def on_ready():
     # Cambiar el estado del bot cuando esté listo
     await bot.change_presence(activity=discord.Game(name="defender servidores"))
+    # Envía el mensaje de introducción al primer canal de texto del primer servidor
+    guild = bot.guilds[0]
+    channel = guild.text_channels[0]
+    await channel.send(introduction_message)
 
 # Evento cuando se recibe un mensaje
 @bot.event
@@ -116,10 +131,11 @@ async def on_message(message):
             resultado_analisis = await obtener_resultados_virustotal(url)
             await message.channel.send(resultado_analisis)
 
-    # Procesar comandos sin verificar el prefijo, y manejar CommandNotFound de manera silenciosa
-    try:
-        await bot.process_commands(message)
-    except commands.CommandNotFound:
-        pass  # Ignorar el error CommandNotFound
+    # Procesar comandos solo si no se encontraron URLs ni archivos adjuntos
+    if not urls_encontradas and not message.attachments:
+        try:
+            await bot.process_commands(message)
+        except commands.CommandNotFound:
+            pass  # Ignorar el error CommandNotFoundNotFound
 
 bot.run(BOT_TOKEN)
