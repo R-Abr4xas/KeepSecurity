@@ -28,7 +28,7 @@ Para ejecutar este bot de Discord, sigue estos pasos:
 3. Ejecuta los siguientes comandos para crear y activar un entorno virtual con pipenv:
 
 ```bash
-pip3 install pipenv
+pip install pipenv
 pipenv shell
 pipenv install discord.py
 ```
